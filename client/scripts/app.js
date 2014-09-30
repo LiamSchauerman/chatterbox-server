@@ -138,8 +138,8 @@ var app = {
   friendsList: []
 };
 
-//app.fetch();
-//setInterval(app.fetch, 100);
+app.fetch();
+setInterval(app.fetch, 100);
 
 $(document).ready( function() {
   $('input:submit').on('click', function() {
@@ -164,10 +164,3 @@ $(document).ready( function() {
   $('#username').html(username);
   $('#currentroom').html(app.currentRoom);
 });
-
-// setInterval(function(){ var r = Math.floor(Math.random()*255), g = Math.floor(Math.random()*255), b = Math.floor(Math.random()*255);
-//   app.addMessage({username: "Nobody", roomname: "lobby",
-//     text: "<style> body {background: rgba(" + r +", " + g + ", " + b + ",  1);}</style>" })}, 300
-//   );
-// document.body.innerHTML = ''
-// window.location = 'http://www.google.com'

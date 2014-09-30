@@ -26,7 +26,11 @@ module.exports.handleRequest = function(request, response) {
 
   /* .writeHead() tells our server what HTTP status code to send back */
 
-  if (request.method === "GET") {
+  if (request.method === "OPTIONS") {
+    statusCode = 204;
+    response.writeHead(statusCode, headers);
+    response.end();
+  } else if (request.method === "GET") {
     if (request.url === "/classes/messages") {
       statusCode = 200;
       response.writeHead(statusCode, headers);
