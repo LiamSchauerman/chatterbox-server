@@ -24,6 +24,9 @@ var server = http.createServer(handleRequest.handleRequest);
 console.log("Listening on http://" + ip + ":" + port);
 server.listen(port, ip);
 
+
+// server.objToReturn = {results:[]};
+
 /* To start this server, run:
      node basic-server.js
  *  on the command line.
