@@ -24,7 +24,7 @@ var app = {
         console.log('chatterbox: Message sent');
       },
       error: function(data) {
-        console.error('chatterbox: Failed to send message');
+        // console.error('chatterbox: Failed to send message');
       }
     });
   },
@@ -59,12 +59,12 @@ var app = {
     message.text.replace(/<script>|<\/script>/g, '');
     if(app.currentRoom === message.roomname) {
       if(app.username === message.username){
-        $("#chats").prepend("<li class='message user'><span class='username'>" + message.username + "</span>: " + message.text+"</li>");
+        $("#chats").append("<li class='message user'><span class='username'>" + message.username + "</span>: " + message.text+"</li>");
       } else{
         if (app.friendsList.indexOf(message.username) > -1) {
-          $("#chats").prepend("<li class='message friendly'><span class='username'>" + message.username + "</span>: <strong>" + message.text+"</strong></li>");
+          $("#chats").append("<li class='message friendly'><span class='username'>" + message.username + "</span>: <strong>" + message.text+"</strong></li>");
         } else {
-          $("#chats").prepend("<li class='message'><span class='username'>" + message.username + "</span>: " + message.text+"</li>");
+          $("#chats").append("<li class='message'><span class='username'>" + message.username + "</span>: " + message.text+"</li>");
         }
       }
     }
@@ -74,12 +74,9 @@ var app = {
     // inserts the new messages into the existing message list
     if (data.results) {
       var messages = data.results;
-      // app.clearMessages();
-      var messageCount = 0;
-      for (var i = 0; messageCount < 10; i++) {
+      for (var i = 0; i < messages.length; i++) {
         app.addMessage(messages[i]);
         app.newRoom(messages[i]);
-        messageCount++;
       }
     }
   },
