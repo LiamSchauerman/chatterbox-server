@@ -37,6 +37,7 @@ var app = {
       contentType: "application/jsonp",
       url: "http://127.0.0.1:3000/classes/messages",
       success: function(data){
+        console.log(data);
         app.clearMessages();
         app.displayMessages(data);
         app.displayRooms(data);
@@ -118,12 +119,12 @@ var app = {
   },
 
   handleSubmit: function() {
-    var idx = window.location.search.indexOf('=') + 1;
-    var username = window.location.search.slice(idx);
+    //var idx = window.location.search.indexOf('=') + 1;
+    //var username = window.location.search.slice(idx);
     var message = {
       roomname: app.currentRoom,
       text: $('#message').val(),
-      username: username
+      username: app.username
     };
     app.send(message);
     $('#message').val('');
@@ -136,7 +137,7 @@ var app = {
 };
 
 app.fetch();
-setInterval(app.fetch, 100);
+//setInterval(app.fetch, 100);
 
 $(document).ready( function() {
   $('input:submit').on('click', function() {
@@ -156,7 +157,7 @@ $(document).ready( function() {
     }
   });
   var idx = window.location.search.indexOf('=') + 1;
-  var username = window.location.search.slice(idx);
+  var username = "justin"; //window.location.search.slice(idx);
   app.username = username;
   $('#username').html(username);
   $('#currentroom').html(app.currentRoom);
