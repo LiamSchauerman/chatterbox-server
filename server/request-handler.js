@@ -5,6 +5,7 @@
  * this file and include it in basic-server.js so that it actually works.
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
 var objToReturn = {results:[]};
+var fs = require("fs");
 
 module.exports.handleRequest = function(request, response) {
   /* the 'request' argument comes from nodes http module. It includes info about the
@@ -50,6 +51,10 @@ module.exports.handleRequest = function(request, response) {
       response.writeHead(statusCode, headers);
       request.on('data', function(data) {
         objToReturn.results.push(JSON.parse(data));
+        fs.appendFile('./files/messages.txt', 'data to append', function(err) {
+          if (err) throw err;
+          console.log("The 'data to append' was appended to file!");
+        });
       });
       response.end();
     } else if (request.url === '/classes/room1') {
