@@ -4,3 +4,4 @@
 {"roomname":"lobby","text":"testttt","username":"justin"}
 {"roomname":"lobby","text":"aaaa","username":"justin"}
 {"roomname":"lobby","text":"gagga","username":"justin"}
+{"roomname":"lobby","text":"goi","username":"justin"}
