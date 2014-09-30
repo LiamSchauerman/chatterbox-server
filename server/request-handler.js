@@ -27,10 +27,14 @@ module.exports.handleRequest = function(request, response) {
 
   /* .writeHead() tells our server what HTTP status code to send back */
 
+var sendResponse = function(response, data, statusCode){
+  var statusCode = statusCode || 200;
+  response.writeHead(statusCode, headers);
+  response.end( JSON.stringify(data) );
+}
+
   if (request.method === "OPTIONS") {
-    statusCode = 204;
-    response.writeHead(statusCode, headers);
-    response.end();
+    sendResponse(response, null, 204);
   } else if (request.method === "GET") {
     if (request.url === "/classes/messages") {
       // response.end(JSON.stringify(objToReturn));
@@ -49,23 +53,15 @@ module.exports.handleRequest = function(request, response) {
         var objToReturn = {
           results: parsedData
         };
-        statusCode = 200;
-        response.writeHead(statusCode, headers);
-        response.end(JSON.stringify(objToReturn));
+        sendResponse(response, objToReturn);
       });
     } else if (request.url === '/classes/room1'){
-      statusCode = 200;
-      response.writeHead(statusCode, headers);
-      response.end(JSON.stringify(objToReturn));
+      sendResponse(response, objToReturn);
     } else {
-      statusCode = 404;
-      response.writeHead(statusCode, headers);
-      response.end();
+      sendResponse(response, null, 404);
     }
   } else if (request.method === "POST") {
     if (request.url === "/classes/messages") {
-      statusCode = 201;
-      response.writeHead(statusCode, headers);
       request.on('data', function(data) {
         // objToReturn.results.push(JSON.parse(data));
         fs.appendFile('./files/messages.txt', data+"\n", function(err) {
@@ -73,23 +69,18 @@ module.exports.handleRequest = function(request, response) {
           console.log("The 'data to append' was appended to file!");
         });
       });
-      response.end();
+      sendResponse(response, null, 201);
     } else if (request.url === '/classes/room1') {
-      statusCode = 201;
-      response.writeHead(statusCode, headers);
       request.on('data', function(data) {
         objToReturn.results.push(JSON.parse(data));
       });
-      response.end();
+      sendResponse(response, null, 201);
     } else {
-      statusCode = 404;
-      response.writeHead(statusCode, headers);
-      response.end();
+      sendResponse(response, null, 404);
+
     }
   } else {
-    statusCode = 404;
-    response.writeHead(statusCode, headers);
-    response.end();
+    sendResponse(response, null, 404);
   }
 
   /* Make sure to always call response.end() - Node will not send
